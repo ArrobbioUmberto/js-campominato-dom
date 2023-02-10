@@ -37,17 +37,20 @@ console.log('ciao')
 let quanteBombe = 8
 let  numeriElencoBomba = []
 do{
-    for (let i=1; i < quanteBombe; i++){
+    for (let i=0; i < quanteBombe; i++){
         // genero un numero randomico tra i valori della tabella 
         const numeriBomba = parseInt((Math.random()*(100,1)) * 100)
         console.log(numeriBomba)
         if (!numeriElencoBomba.includes(numeriBomba)){
             numeriElencoBomba.push(numeriBomba)
             console.log (numeriElencoBomba)
+        } else {
+            quanteBombe += 1
         }
     }
     
-} while (numeriElencoBomba.lenght< quanteBombe)
+} while (numeriElencoBomba.lenght < quanteBombe)
+console.log(numeriElencoBomba)
 
 
 
