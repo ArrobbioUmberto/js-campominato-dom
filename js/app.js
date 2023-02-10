@@ -41,14 +41,12 @@ do{
         // genero un numero randomico tra i valori della tabella 
         const numeriBomba = parseInt((Math.random()*(100,1)) * 100)
         console.log(numeriBomba)
-        numeriElencoBomba.push(numeriBomba)
-        console.log(numeriBomba)
-        console.log(numeriElencoBomba)
-        // devo verificare se ci sono dei numeri doppi per eliminarli 
-        if (numeriElencoBomba === numeriBomba){
-        console.log (numeriElencoBomba,numeriBomba)
+        if (!numeriElencoBomba.includes(numeriBomba)){
+            numeriElencoBomba.push(numeriBomba)
+            console.log (numeriElencoBomba)
         }
     }
+    
 } while (numeriElencoBomba.lenght< quanteBombe)
 
 
