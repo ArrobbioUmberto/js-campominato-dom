@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#table-width{
+    max-width: 778px;
+    margin: 2rem auto;
+}
+.color{
+    background-color: cornflowerblue;
+    color: yellow;
+    font-style: italic;
+}
