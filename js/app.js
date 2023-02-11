@@ -17,6 +17,8 @@ let numeroCelle = ''
 
 
 
+
+
 btnElement.addEventListener('click', function () {
     let levelSelector = document.getElementById('select').value
     if (levelSelector == 'first'){
@@ -27,9 +29,9 @@ btnElement.addEventListener('click', function () {
         numeroCelle = 7;
     }
     console.log(levelSelector,numeroCelle)
-    console.log(numeroCelle)
+    // console.log(numeroCelle)
     const tabellaArea = numeroCelle ** 2
-    console.log(tabellaArea)
+    // console.log(tabellaArea)
     appendHTML.innerHTML = ''
     for (let i = 1; i < tabellaArea + 1; i++) {
         // console.log(i + 1)
@@ -45,7 +47,7 @@ btnElement.addEventListener('click', function () {
     do {
         for (let i = 1; i < quanteBombe + 1; i++) {
             // genero un numero randomico tra i valori della tabella 
-            let numeriBomba = parseInt((Math.random() * (100, 1)) * tabellaArea)
+            let numeriBomba = parseInt((Math.random() * (100, 1)) * tabellaArea + 1)
             // console.log(numeriBomba)
             if (!numeriElencoBomba.includes(numeriBomba)) {
                 numeriElencoBomba.push(numeriBomba)
@@ -62,18 +64,27 @@ btnElement.addEventListener('click', function () {
 
 
     const celleElements = document.querySelectorAll('.cella')
-    console.log(celleElements)
+    // console.log(celleElements)
+    const tabellonePunti = document.querySelector('.points')
+    let points = 0
+    
     for (let i = 0; i < celleElements.length; i++) {
-        const cella = celleElements[i]
+        let cella = celleElements[i]
         const counter = i + 1
         cella.addEventListener('click', function () {
             if (numeriElencoBomba.includes(counter)){
                 cella.classList.add('color-bomb')
+                cella = alert('Peccato hai perso. Prova ancora')
+                appendHTML.innerHTML = ''
             } else {
                 cella.classList.add('color')
+                points = points + 5
+                console.log(points)
             }
             console.log(i + 1)
         })
+        // tabellonePunti.innerHTML = `<input class="mt-3" type="text" placeholder="il tuo punteggio" value="${points}">`
+        // HTMLFormControlsCollection.log(tabellonePunti)
     }
 })
 // adesso dopo aver scelto la difficoltà, deve iniziare il gioco 
@@ -92,24 +103,7 @@ btnElement.addEventListener('click', function () {
 
 
 
-// Fase due esercizio 
-// let quanteBombe = 16
-// let  numeriElencoBomba = []
-// do{
-//     for (let i=0; i < quanteBombe; i++){
-//         // genero un numero randomico tra i valori della tabella 
-//         const numeriBomba = parseInt((Math.random()*(100,1)) * 100)
-//         console.log(numeriBomba)
-//         if (!numeriElencoBomba.includes(numeriBomba)){
-//             numeriElencoBomba.push(numeriBomba)
-//             console.log (numeriElencoBomba)
-//         } else {
-//             quanteBombe += 1
-//         }
-//     }
-    
-// } while (numeriElencoBomba.lenght < quanteBombe)
-// console.log(numeriElencoBomba)
+
 
 
 
