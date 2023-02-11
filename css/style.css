@@ -8,7 +8,12 @@
     margin: 2rem auto;
 }
 .color{
-    background-color: cornflowerblue;
+    background-color: green;
     color: yellow;
+    font-style: italic;
+}
+.color-bomb{
+    background-color: red;
+    color: black;
     font-style: italic;
 }
