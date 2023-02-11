@@ -13,7 +13,9 @@
     font-style: italic;
 }
 .color-bomb{
-    background-color: red;
+    background-image: url('../img/bomb_1f4a3.jpeg');
+    background-position: center;
+    background-size: contain;
     color: black;
     font-style: italic;
 }
