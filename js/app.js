@@ -13,8 +13,9 @@ playHTML.innerHTML= `<select id="select" name="level" style="width: 100px" class
 const btnElement = document.querySelector('.btn')
 let numeroCelle = ''
 
-
-
+const tabellonePunti = document.querySelector('.points')
+let points = 0
+tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
 
 
 
@@ -65,8 +66,7 @@ btnElement.addEventListener('click', function () {
 
     const celleElements = document.querySelectorAll('.cella')
     // console.log(celleElements)
-    const tabellonePunti = document.querySelector('.points')
-    let points = 0
+    
     
     for (let i = 0; i < celleElements.length; i++) {
         let cella = celleElements[i]
@@ -76,18 +76,20 @@ btnElement.addEventListener('click', function () {
                 cella.classList.add('color-bomb')
                 cella = alert('Peccato hai perso. Prova ancora')
                 appendHTML.innerHTML = ''
+                points = 0
+                tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
             } else {
                 cella.classList.add('color')
-                points = points + 5
+                points += 5
+                tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
                 console.log(points)
             }
             console.log(i + 1)
         })
-        // tabellonePunti.innerHTML = `<input class="mt-3" type="text" placeholder="il tuo punteggio" value="${points}">`
+       
         // HTMLFormControlsCollection.log(tabellonePunti)
     }
 })
-// adesso dopo aver scelto la difficoltà, deve iniziare il gioco 
 
 
 
