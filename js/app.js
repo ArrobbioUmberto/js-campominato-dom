@@ -3,109 +3,165 @@ console.log('ciao')
 
 
 
-const appendHTML = document.querySelector('.row')
-const playHTML = document.querySelector('.play')
-playHTML.innerHTML= `<select id="select" name="level" style="width: 100px" class="d-flex flex-row" >
-                         <option value="first">Easy</option>
-                         <option value="middle">Medium</option>
-                         <option value="strong">Hard</option>
-                    </select>`
-const btnElement = document.querySelector('.btn')
-let numeroCelle = ''
+console.log('griglia')
 
-const tabellonePunti = document.querySelector('.points')
-let points = 0
-tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
+const platBtnElement = document.getElementById('play-btn')
+const grigliaElement = document.querySelector('.griglia')
+let celleElements
+let lato = 8
 
+// console.log(platBtnElement)
+platBtnElement.addEventListener('click', startGame) //sen le tonde altrimenti viene invocata subito
 
+// no numeri doppi
+// nuimeri compresi tra 1 3 numeroDiCelle
+let bombe = [5, 54, 9, 21, 36, 64]
+console.log(bombe)
 
+let punteggio = 0
 
-btnElement.addEventListener('click', function () {
-    let levelSelector = document.getElementById('select').value
-    if (levelSelector == 'first'){
-        numeroCelle = 10;
-    } else if (levelSelector == 'middle'){
-        numeroCelle = 9;
-    } else if (levelSelector == 'strong'){
-        numeroCelle = 7;
-    }
-    console.log(levelSelector,numeroCelle)
-    // console.log(numeroCelle)
-    const tabellaArea = numeroCelle ** 2
-    // console.log(tabellaArea)
-    appendHTML.innerHTML = ''
-    for (let i = 1; i < tabellaArea + 1; i++) {
-        // console.log(i + 1)
-        const createDiv = `<div class="d-flex flex-row flex-nowrap p-2 border justify-content-center align-items-center cella fs-2" style="width: calc(100%/${numeroCelle});aspect-ratio:1">${i}</div>`
-        appendHTML.innerHTML += createDiv
-    }
-    console.log(appendHTML)
-    // fino a qui abbiamo generato la tabella richiesta dall'utente 
+function resetGame() {
+	// azzerare il punteggio
+	punteggio = 0
 
-    // adesso generiamo la lista con le bombe e la loro posizione 
-    let quanteBombe = 16
-    let numeriElencoBomba = []
-    do {
-        for (let i = 1; i < quanteBombe + 1; i++) {
-            // genero un numero randomico tra i valori della tabella 
-            let numeriBomba = parseInt((Math.random() * (100, 1)) * tabellaArea + 1)
-            // console.log(numeriBomba)
-            if (!numeriElencoBomba.includes(numeriBomba)) {
-                numeriElencoBomba.push(numeriBomba)
-                // console.log(numeriElencoBomba)
-            } else {
-                quanteBombe += 1
-            }
-        }
+	// svuotare la griglia
+	grigliaElement.innerHTML = ''
 
-    } while (numeriElencoBomba.lenght < quanteBombe)
-    console.log(numeriElencoBomba)
+	// eliminare eventuali messaggi di game over...
+}
 
-    // adesso dobbiamo collegare la lista delle bombe alle varie celle per collegarle ai colori rosso o verde 
+function generaGriglia(latoGriglia) {
+	let numeroCelle = latoGriglia * latoGriglia
 
+	for (let i = 0; i < numeroCelle; i++) {
+		let num = i + 1
+		// console.log(num)
+		let divString = `<div class="cella" style="width: calc(100% / ${latoGriglia});" >${num}</div>` // <div> + num + </div>
 
-    const celleElements = document.querySelectorAll('.cella')
-    // console.log(celleElements)
-    
-    
-    for (let i = 0; i < celleElements.length; i++) {
-        let cella = celleElements[i]
-        const counter = i + 1
-        cella.addEventListener('click', function () {
-            if (numeriElencoBomba.includes(counter)){
-                cella.classList.add('color-bomb')
-                cella = alert('Peccato hai perso. Prova ancora')
-                appendHTML.innerHTML = ''
-                points = 0
-                tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
-            } else {
-                cella.classList.add('color')
-                points += 5
-                tabellonePunti.innerHTML = `<div class="mt-3 border" style="width: 100px"type="text" placeholder="il tuo punteggio">${points}</div>`
-                console.log(points)
-            }
-            console.log(i + 1)
-        })
-       
-        // HTMLFormControlsCollection.log(tabellonePunti)
-    }
-})
+		grigliaElement.innerHTML += divString
+	}
+}
 
+function generaBombe(numeroBombe, min, max) {
+	let arrayBombe = []
 
+	// let i = 1
+	//generazione numeri random diversi
+	while (arrayBombe.length < numeroBombe) {
+		const num = getRandomIntInclusive(min, max)
 
+		// if( arrayBombe.includes(num) === false ) {
+		// 	arrayBombe.push(num)
+		// }
 
-    
+		if (!arrayBombe.includes(num)) {
+			arrayBombe.push(num)
+		}
 
+		// i++
+	}
 
+	// console.log(i)
 
-    
-   
+	return arrayBombe
+}
 
+function startGame() {
+	console.log('start game')
 
+	// eseguire tutte le operazioni di reset
+	resetGame()
 
+	let numeroCelle = lato * lato
+	bombe = generaBombe(16, 1, numeroCelle)
 
+	console.log(bombe)
+	generaGriglia(lato)
 
+	celleElements = document.querySelectorAll('.cella')
+	// console.log(celleElements)
 
+	for (let i = 0; i < celleElements.length; i++) {
+		const cella = celleElements[i]
 
+		cella.addEventListener('click', onClick)
+	}
 
+	return 'Fine star game'
+}
 
+function onClick(event) {
+	// console.log(event)
+	// console.log(event.target)
+	// console.log(this)
+	// console.log(event.target === this)
+	// const cella = event.target
+	const cella = this
+	console.log(cella.innerHTML)
+
+	const numeroCella = parseInt(cella.innerHTML)
+	// console.log(quadrato)
+
+	// controllare se numeroCella è una bomba
+
+	if (isBomb(numeroCella)) {
+		// game over
+		gameOver()
+
+		console.log(numeroCella, 'è una bomba')
+		cella.classList.add('bg-red')
+	} else {
+		// imcrementare il punteggio
+		console.log(numeroCella, 'non è una bomba')
+		punteggio++
+		console.log(punteggio)
+		cella.classList.add('bg-green')
+
+		// controllo se utente ha vinto
+		let numeroCaselleSenzaBombe = lato * lato - bombe.length
+		if (punteggio === numeroCaselleSenzaBombe) {
+			console.log('hai vinto')
+		}
+	}
+
+	cella.removeEventListener('click', onClick)
+	// console.log(i + 1)
+}
+
+function isBomb(numero) {
+	const result = bombe.includes(numero)
+	return result
+}
+
+function gameOver() {
+	console.log(`Hai perso! Punti totalizzatio: ${punteggio}.`)
+
+	// rimuovendo tutti gli event listenere dalle celle della griglia
+	for (let i = 0; i < celleElements.length; i++) {
+		const cella = celleElements[i]
+
+		const numCella = parseInt(cella.innerHTML)
+		console.log(numCella)
+
+		if (isBomb(numCella)) {
+			cella.classList.add('bg-red')
+		}
+
+		cella.removeEventListener('click', onClick)
+	}
+}
+
+// grigliaElement.addEventListener('click', function (event) {
+// 	console.log('target:', event.target)
+// 	console.log('this:', this)
+
+// 	let griglia = this
+// 	let cella = event.target
+// 	cella.classList.add('bg-green')
+// })
+
+function getRandomIntInclusive(min, max) {
+	min = Math.ceil(min)
+	max = Math.floor(max)
+	return Math.floor(Math.random() * (max - min + 1) + min) // The maximum is inclusive and the minimum is inclusive
+}

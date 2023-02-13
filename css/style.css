@@ -1,21 +1,45 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
-#table-width{
-    max-width: 778px;
-    margin: 2rem auto;
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 50px;
 }
-.color{
-    background-color: green;
-    color: yellow;
-    font-style: italic;
+
+.griglia {
+	display: flex;
+	flex-wrap: wrap;
 }
-.color-bomb{
-    background-image: url('../img/bomb_1f4a3.jpeg');
-    background-position: center;
-    background-size: contain;
-    color: black;
-    font-style: italic;
+
+.griglia > * {
+	/* width: calc(100% / 10); */
+	aspect-ratio: 1;
+	border: 2px solid crimson;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 24px;
+}
+
+#play-btn {
+	border: 0;
+	background-color: #dddddd;
+	color: black;
+	border-radius: 10px;
+	padding: 10px 30px;
+	display: block;
+}
+
+#play-btn:hover {
+	background-color: #aaaaaa;
+}
+
+.flex {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
 }
